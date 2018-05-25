@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -90,10 +92,12 @@ public class ImcActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         EditText etSearch = findViewById(R.id.etSearch);
+
         String ingredient = etSearch.getText().toString();
         ApiBusiness api = new ApiBusiness();
         int age = userEntity.getAge();
         if(!ingredient.isEmpty()) {
+            etSearch.onEditorAction(EditorInfo.IME_ACTION_DONE);
             switch (v.getId()) {
                 case R.id.btnSearch:
                     if (age > 40)
@@ -133,7 +137,7 @@ public class ImcActivity extends AppCompatActivity implements View.OnClickListen
                     Intent intent = new Intent(ImcActivity.this, RecipeActivity.class);
                     startActivity(intent);
                 }
-            }, 5000);
+            }, 7000);
         }
         else{
             Toast.makeText(getApplicationContext(), "Veuillez renseigner un ingredient", Toast.LENGTH_LONG).show();
